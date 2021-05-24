@@ -1,0 +1,147 @@
+Practice:
+
+
+-- SELECT * FROM `dec-2020`.students WHERE gender='female';
+-- SELECT * FROM `dec-2020`.students WHERE gender='male' AND age BETWEEN 25 AND 40;
+-- SELECT * FROM `dec-2020`.students WHERE gender='female' AND age > 30 AND name LIKE '_a%a';
+-- SELECT AVG(age) AS avgAge FROM `dec-2020`.students WHERE gender='male';
+-- SELECT MAX(age) AS maxAge FROM `dec-2020`.students WHERE gender='female';
+-- SELECT * FROM `dec-2020`.students LIMIT 3 OFFSET 8;
+-- SELECT COUNT(name) AS total FROM `dec-2020`.students;
+-- UPDATE `dec-2020`.students SET gender='female' WHERE name LIKE 'a%';
+-- UPDATE `dec-2020`.students SET name='Antonina' WHERE name='Anton';
+-- UPDATE `dec-2020`.students SET age=10 WHERE gender='female' AND name NOT LIKE '%a';
+-- DELETE FROM `dec-2020`.students WHERE age NOT BETWEEN 25 AND 40;
+
+
+
+Homework
+
+
+-- SELECT FirstName FROM bank.client WHERE LENGTH(FirstName) < 6; 
+
+-- SELECT * FROM bank.department WHERE DepartmentCity = 'Lviv'; 
+
+-- SELECT * FROM bank.client WHERE Education='high' ORDER BY LastName; 
+
+-- SELECT * FROM bank.application ORDER BY Client_idClient DESC LIMIT 5 OFFSET 9; /
+
+-- SELECT * FROM bank.client WHERE LastName LIKE '%iv'; 
+
+-- SELECT idClient, DepartmentCity FROM bank.client
+-- INNER JOIN bank.department ON bank.client.Department_idDepartment = bank.department.idDepartment
+-- WHERE DepartmentCity = "Kyiv"; 
+
+-- SELECT FirstName, Passport FROM bank.client WHERE Passport LIKE 'KC8%'; 
+
+
+-- SELECT * FROM bank.application WHERE sum > 5000; 
+
+-- SELECT * FROM bank.client ORDER BY Passport;
+-- SELECT count(idClient) AS Total FROM bank.client; 
+-- SELECT count(idClient) AS Total FROM bank.client WHERE City='Lviv'; //9
+
+
+-- SELECT Client_idClient, MAX(Sum) AS MaxCredit FROM bank.application GROUP BY Client_idClient; 
+
+
+-- SELECT Client_idClient, COUNT(idApplication) AS NumberOfApplications FROM bank.application GROUP BY Client_idClient; 
+
+
+-- SELECT MAX(sum) as MaxCredit FROM bank.application; 
+-- SELECT MIN(sum) as MinCredit FROM bank.application; 
+
+
+-- SELECT COUNT(idApplication) FROM bank.application JOIN bank.client ON Client_idClient=idClient WHERE Education='high'; 
+
+
+-- SELECT AVG(Sum) as avg_credit, idClient, LastName, FirstName, City, Education
+-- FROM bank.application
+-- INNER JOIN bank.client ON bank.application.Client_idClient = bank.client.idClient
+-- GROUP BY Client_idClient
+-- ORDER BY avg_credit DESC
+-- LIMIT 1; 
+
+
+-- SELECT SUM(Sum), DepartmentCity FROM bank.department
+-- INNER JOIN bank.client ON bank.client.Department_idDepartment = bank.department.idDepartment
+-- INNER JOIN bank.application ON bank.application.Client_idClient = bank.client.idClient
+-- GROUP BY DepartmentCity
+-- ORDER BY SUM(Sum) DESC
+-- LIMIT 1; 
+
+-- SELECT MAX(Sum), DepartmentCity FROM bank.department
+-- INNER JOIN bank.client ON bank.client.Department_idDepartment = bank.department.idDepartment
+-- INNER JOIN bank.application ON bank.application.Client_idClient = bank.client.idClient
+-- GROUP BY DepartmentCity
+-- ORDER BY MAX(Sum) DESC
+-- LIMIT 1; 
+
+
+-- UPDATE bank.application
+-- INNER JOIN bank.client ON bank.application.Client_idClient = bank.client.idClient
+-- SET bank.application.Sum = 6000
+-- WHERE bank.client.Education = "high"; 
+
+
+-- UPDATE bank.client
+-- INNER JOIN bank.department ON 
+-- bank.client.Department_idDepartment = bank.department.idDepartment
+-- SET bank.client.City = "Kyiv"
+-- WHERE bank.department.DepartmentCity = "Kyiv"; 
+
+
+-- DELETE FROM bank.application WHERE CreditState = "returned"; 
+
+
+
+-- DELETE bank.application 
+-- FROM bank.application
+-- INNER JOIN bank.client ON bank.application.Client_idClient = bank.client.idClient
+-- WHERE LastName LIKE "_e%"
+-- OR LastName LIKE "_o%"; 
+
+
+
+-- SELECT SUM(Sum), DepartmentCity FROM bank.department
+-- INNER JOIN bank.client ON bank.client.Department_idDepartment = bank.department.idDepartment
+-- INNER JOIN bank.application ON bank.application.Client_idClient = bank.client.idClient
+-- WHERE bank.department.DepartmentCity = "Lviv"
+-- GROUP BY Client_idClient
+-- HAVING SUM(Sum) > 5000; 
+
+
+
+-- SELECT SUM(Sum), Client_idClient FROM bank.application
+-- WHERE CreditState = "Returned"
+-- GROUP BY Client_idClient
+-- HAVING SUM(Sum) > 5000; 
+
+
+-- SELECT MAX(Sum) FROM bank.application
+-- WHERE CreditState = "Not returned"; 
+
+
+-- SELECT SUM(Sum), Client_idClient FROM bank.application
+-- GROUP BY Client_idClient
+-- ORDER BY SUM(Sum)
+-- LIMIT 1; 
+
+/*Знайти кредити, сума яких більша за середнє значення усіх кредитів*/
+-- SELECT SUM(Sum), AVG(Sum) FROM bank.application
+-- HAVING SUM(Sum) > AVG(Sum); 
+
+
+/*Знайти клієнтів, які є з того самого міста, що і клієнт, який взяв найбільшу кількість кредитів*/ 
+
+
+
+-- SELECT COUNT(bank.application.Client_idClient) AS NumberOfCredits, bank.application.Client_idClient, bank.client.City FROM bank.application
+-- INNER JOIN bank.client ON bank.application.Client_idClient = bank.client.idClient
+-- group by Client_idClient
+-- ORDER BY NumberOfCredits DESC
+-- LIMIT 1; 
+
+
+
+
